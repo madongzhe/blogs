@@ -4,15 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>我的博客</title>
+  <title>pm2 常用命令 | 我的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="日常记录，随心记录">
-<meta property="og:type" content="website">
-<meta property="og:title" content="我的博客">
-<meta property="og:url" content="https://madongzhe.github.io/blogs/index.html">
+  <meta name="description" content="更新 PM2安装最新的 pm2 版本： 1npm install pm2@latest -g  然后更新内存中的 PM2 ： 1pm2 update  常用命令1234567891011121314151617181920212223242526272829303132333435363738394041424344454647# Fork modepm2 start app.js --name">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pm2 常用命令">
+<meta property="og:url" content="https://madongzhe.github.io/blogs/2023/12/05/pm2/index.html">
 <meta property="og:site_name" content="我的博客">
-<meta property="og:description" content="日常记录，随心记录">
+<meta property="og:description" content="更新 PM2安装最新的 pm2 版本： 1npm install pm2@latest -g  然后更新内存中的 PM2 ： 1pm2 update  常用命令1234567891011121314151617181920212223242526272829303132333435363738394041424344454647# Fork modepm2 start app.js --name">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-12-05T08:13:28.368Z">
+<meta property="article:modified_time" content="2023-12-05T08:37:27.688Z">
 <meta property="article:author" content="mdz">
 <meta property="article:tag" content="日常记录，随心记录">
 <meta name="twitter:card" content="summary">
@@ -78,9 +80,7 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-pm2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-pm2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/blogs/2023/12/05/pm2/" class="article-date">
   <time class="dt-published" datetime="2023-12-05T08:13:28.368Z" itemprop="datePublished">2023-12-05</time>
@@ -93,8 +93,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/blogs/2023/12/05/pm2/">pm2 常用命令</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      pm2 常用命令
     </h1>
   
 
@@ -124,104 +124,19 @@
     </footer>
   </div>
   
-</article>
-
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-husky" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/blogs/2023/11/13/husky/" class="article-date">
-  <time class="dt-published" datetime="2023-11-13T03:53:03.000Z" itemprop="datePublished">2023-11-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/blogs/2023/11/13/husky/">vue3+vite 项目配置 husky</a>
-    </h1>
+    <a href="/blogs/2023/11/13/husky/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">vue3+vite 项目配置 husky</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>前言</p>
-<p>在上面我们已经集成好了我们代码校验工具，但是需要每次手动的去执行命令才会格式化我们的代码。如果有人没有格式化就提交了远程仓库中，那这个规范就没什么用。所以我们需要强制让开发人员按照代码规范来提交。</p>
-<p>要做到这件事情，就需要利用 husky 在代码提交之前触发 git hook(git 在客户端的钩子)，然后执行 pnpm run format 来自动的格式化我们的代码。</p>
-<p>4.1 安装 husky</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnpm install -D husky</span><br></pre></td></tr></table></figure>
-
-<p>执行</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx husky-init</span><br></pre></td></tr></table></figure>
-
-<p>会在根目录下生成个一个.husky 目录，在这个目录下面会有一个 pre-commit 文件，这个文件里面的命令在我们执行 commit 的时候就会执行。</p>
-<p>在.husky&#x2F;pre-commit 文件添加如下命令：</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env sh</span><br><span class="line">.&quot;$(dirname -- &quot;$<span class="number">0</span>&quot;)/_/husky.sh&quot;</span><br><span class="line">pnpm run formar</span><br></pre></td></tr></table></figure>
-
-<p>当我们对代码进行 commit 操作的时候，就会执行命令，对代码进行格式化，然后再提交。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://madongzhe.github.io/blogs/2023/11/13/husky/" data-id="clowgsdly0001s4tk811a3slo" data-title="vue3+vite 项目配置 husky" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-
-  
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/blogs/2023/09/25/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2023-09-25T06:33:50.802Z" itemprop="datePublished">2023-09-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/blogs/2023/09/25/hello-world/">docker常用命令</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <hr>
-<h5>创建容器命令：</h5>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -p 8088:8088 --name images -v /home/www:/www -d imagesName</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://madongzhe.github.io/blogs/2023/09/25/hello-world/" data-id="clmyioz4b0000f8tkcorreqlj" data-title="docker常用命令" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
 </section>

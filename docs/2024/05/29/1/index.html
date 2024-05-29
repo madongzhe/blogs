@@ -4,15 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>归档: 2023/12 | 我的博客</title>
+  <title>MongoDB数据库备份脚本 | 我的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="日常记录，随心记录">
-<meta property="og:type" content="website">
-<meta property="og:title" content="我的博客">
-<meta property="og:url" content="https://madongzhe.github.io/blogs/archives/2023/12/index.html">
+  <meta name="description" content="创建：touch 文件名。 如：touch mongodtask.sh 编辑：sudo gedit mongodtask.sh 复制一下脚本代码按需要修改 脚本： #!&#x2F;bin&#x2F;bash #backup MongoDB #mongodump 命令路径 DUMP&#x3D;&#x2F;home&#x2F;test&#x2F;Downloads&#x2F;mongodb&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MongoDB数据库备份脚本">
+<meta property="og:url" content="https://madongzhe.github.io/blogs/2024/05/29/1/index.html">
 <meta property="og:site_name" content="我的博客">
-<meta property="og:description" content="日常记录，随心记录">
+<meta property="og:description" content="创建：touch 文件名。 如：touch mongodtask.sh 编辑：sudo gedit mongodtask.sh 复制一下脚本代码按需要修改 脚本： #!&#x2F;bin&#x2F;bash #backup MongoDB #mongodump 命令路径 DUMP&#x3D;&#x2F;home&#x2F;test&#x2F;Downloads&#x2F;mongodb&#x2F;">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-05-29T06:36:52.000Z">
+<meta property="article:modified_time" content="2024-05-29T06:43:21.143Z">
 <meta property="article:author" content="mdz">
 <meta property="article:tag" content="日常记录，随心记录">
 <meta name="twitter:card" content="summary">
@@ -78,39 +80,86 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/blogs/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/blogs/2023/12/05/pm2/" class="archive-article-date">
-  <time class="dt-published" datetime="2023-12-05T08:13:28.368Z" itemprop="datePublished">12月 5</time>
+        <section id="main"><article id="post-1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/blogs/2024/05/29/1/" class="article-date">
+  <time class="dt-published" datetime="2024-05-29T06:36:52.000Z" itemprop="datePublished">2024-05-29</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blogs/2023/12/05/pm2/">pm2 常用命令</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      MongoDB数据库备份脚本
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>创建：touch 文件名。</p>
+<p>如：touch mongodtask.sh</p>
+<p>编辑：sudo gedit mongodtask.sh 复制一下脚本代码按需要修改</p>
+<p>脚本：</p>
+<p>#!&#x2F;bin&#x2F;bash</p>
+<p>#backup MongoDB</p>
+<p>#mongodump 命令路径</p>
+<p>DUMP&#x3D;&#x2F;home&#x2F;test&#x2F;Downloads&#x2F;mongodb&#x2F;bin&#x2F;mongodump</p>
+<p>#临时备份目录</p>
+<p>OUT_DIR&#x3D;&#x2F;data1&#x2F;mongodb_bak&#x2F;mongodb_bak_now</p>
+<p>#备份存放路径</p>
+<p>TAR_DIR&#x3D;&#x2F;data1&#x2F;mongodb_bak&#x2F;mongodb_bak_list</p>
+<p>#获取当前系统时间</p>
+<p>DATE&#x3D;<code>date +%Y_%m_%d</code></p>
+<p>#数据库账号</p>
+<p>DB_USER&#x3D;root</p>
+<p>#数据库密码</p>
+<p>DB_PASS&#x3D;p2005</p>
+<p>#DAYS&#x3D;15 代表删除 15 天前的备份，即只保留近 15 天的备份</p>
+<p>DAYS&#x3D;15</p>
+<p>#最终保存的数据库备份文件</p>
+<p>TAR<em>BAK&#x3D;”mongodb_bak</em>$DATE.tar.gz”</p>
+<p>cd $OUT_DIR</p>
+<p>rm -rf $OUT_DIR&#x2F;*</p>
+<p>mkdir -p $OUT_DIR&#x2F;$DATE</p>
+<p>#备份全部数据库</p>
+<p>$DUMP -h 127.0.0.1:27017 -u $DB_USER -p $DB_PASS –authenticationDatabase “admin” -d test -o $OUT_DIR&#x2F;$DATE</p>
+<p>#压缩为.tar.gz 格式</p>
+<p>tar -zcvf $TAR_DIR&#x2F;$TAR_BAK $OUT_DIR&#x2F;$DATE</p>
+<p>#copy to 192.168.33.129</p>
+<p>scp $TAR_DIR&#x2F;$TAR_BAK <a href="mailto:&#x72;&#111;&#x6f;&#x74;&#64;&#x31;&#x39;&#50;&#46;&#x31;&#54;&#x38;&#46;&#51;&#51;&#x2e;&#x31;&#x32;&#x39;">&#x72;&#111;&#x6f;&#x74;&#64;&#x31;&#x39;&#50;&#46;&#x31;&#54;&#x38;&#46;&#51;&#51;&#x2e;&#x31;&#x32;&#x39;</a>:&#x2F;data&#x2F;mongodb_bak</p>
+<p>#删除 15 天前的备份文件</p>
+<p>find $TAR_DIR&#x2F; -mtime +$DAYS -delete</p>
+<p>exit</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://madongzhe.github.io/blogs/2024/05/29/1/" data-id="clwrhtfo60000sstkbmzy7mlz" data-title="MongoDB数据库备份脚本" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/blogs/2023/12/05/pm2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">pm2 常用命令</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 
 </section>
